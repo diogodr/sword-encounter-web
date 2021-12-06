@@ -7,7 +7,7 @@ const api = axios.create({
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
   },
-  baseURL: "http://diogoddr-001-site1.ctempurl.com/api",
+  baseURL: "https://diogoddr-001-site1.ctempurl.com/api",
 });
 
 export default api;
