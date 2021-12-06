@@ -24,6 +24,10 @@ export const Content = styled.form`
   flex-direction: column;
   align-items: center;
 
+  @media (max-width: 425px) {
+    margin: 20px;
+  }
+
   h2 {
     color: #797979;
     margin-top: 20px;

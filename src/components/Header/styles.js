@@ -14,6 +14,10 @@ export const Container = styled.div`
   justify-content: space-between;
   padding: 0 80px;
 
+  @media (max-width: 425px) {
+    padding: 0 20px;
+  }
+
   .logo-header {
     margin-bottom: 15px;
   }
