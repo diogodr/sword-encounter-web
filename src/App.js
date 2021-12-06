@@ -1,6 +1,5 @@
 import React from "react";
 import { createGlobalStyle } from "styled-components";
-import Header from "./components/Header";
 import Routes from "./routes";
 import { AuthProvider } from "./contexts/auth";
 
@@ -17,7 +16,6 @@ function App() {
     <AuthProvider>
       <Routes />
       <GlobalStyle />
-      <Header />
     </AuthProvider>
   );
 }
