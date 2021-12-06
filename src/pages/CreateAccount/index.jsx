@@ -54,6 +54,7 @@ function CreateAccount() {
       })
       .then((response) => {
         setStatus("Salvo com sucesso!");
+        console.log("Salvo com sucesso", response.data);
         setUserEmail("");
         setUserPassword("");
         openModal();

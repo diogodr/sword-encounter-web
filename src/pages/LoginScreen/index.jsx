@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/auth";
 import logo from "../../assets/logo.svg";
 import { useState } from "react";
-import { Container, Content, Button } from "./styles";
+import { Container, Content } from "./styles";
 
 function LoginScreen() {
   const [email, setEmail] = useState();
