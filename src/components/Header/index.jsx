@@ -7,6 +7,7 @@ import { Container } from "./styles";
 import { useAuth } from "../../contexts/auth";
 
 function Header() {
+  const context = useAuth();
   const { Logout } = useAuth();
   const [tooltipisOpen, setTooltipIsOpen] = useState(false);
 
@@ -22,7 +23,7 @@ function Header() {
     <Container>
       <img className="logo-header" src={logoImg} alt="Sword Encounter" />
       <div className="profile-container">
-        <p>diogo@gmail.com</p>
+        <p>{context.user?.email}</p>
         <img
           onClick={() => handleToggleTooltip()}
           className="config-icon"
@@ -30,7 +31,7 @@ function Header() {
           alt="Ícone de engrenagem"
         />
         <div className={tooltipisOpen ? "" : "isHidden"}>
-          <a href="/criar-campanha">Criar campanha</a>
+          <a href="/">Campanhas</a>
           <a href="/fichas">Fichas</a>
           <a href="/imagens">Imagens</a>
           <a onClick={handleLogout} href="/">

@@ -15,6 +15,7 @@ function Campagnes() {
     api.get(`campaigns/user/${userId}`).then((response) => {
       setCampagnes(response.data);
     });
+    console.log(campaigns);
   }, []);
 
   return (

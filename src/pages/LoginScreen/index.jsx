@@ -1,11 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/auth";
-
 import logo from "../../assets/logo.svg";
 import { useState } from "react";
-
-import { Container, Content } from "./styles";
+import { Container, Content, Button } from "./styles";
 
 function LoginScreen() {
   const [email, setEmail] = useState();
@@ -17,6 +15,7 @@ function LoginScreen() {
     event.preventDefault();
     context.Login(email, password);
   }
+
   return (
     <Container>
       <Content onSubmit={handleLogin}>
