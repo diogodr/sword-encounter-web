@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
+  rejectUnauthorized: false,
   headers: {
-    rejectUnauthorized: false,
     "Access-Control-Allow-Headers":
       "Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length",
     "Access-Control-Allow-Origin": "*",
