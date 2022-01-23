@@ -3,11 +3,14 @@ import { useAuth } from "../../contexts/auth";
 import api from "../../services/api";
 
 import { Container, Content } from "./styles";
+import { useCampaign } from "../../contexts/campaignContext";
 
 function Campagnes() {
   const [campaigns, setCampagnes] = useState();
 
   const context = useAuth();
+
+  const contextCampaign = useCampaign();
 
   // Método para chamar campanhas
   useEffect(() => {
@@ -17,13 +20,21 @@ function Campagnes() {
     });
   }, []);
 
+  const selectCampaign = (campaign) => {
+    contextCampaign.SaveSelectedCampaign(campaign);
+  };
+
   return (
     <Container>
       <Content>
         <h2>Campanhas</h2>
         <ul>
           {campaigns?.map((campaign) => (
-            <li key={campaign?.id}>{campaign?.name}</li>
+            <li key={campaign?.id}>
+              <div onClick={() => selectCampaign(campaign)}>
+                <a href="/dashboard">{campaign?.name}</a>
+              </div>
+            </li>
           ))}
         </ul>
       </Content>

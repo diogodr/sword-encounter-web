@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   async function Login(email, password) {
-    const response = await api
+    await api
       .post("/auth", {
         email: email,
         password: password,

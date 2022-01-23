@@ -5,9 +5,11 @@ import engrenagemIcon from "../../assets/engrenagem-icon.svg";
 
 import { Container } from "./styles";
 import { useAuth } from "../../contexts/auth";
+import { useCampaign } from "../../contexts/campaignContext";
 
 function Header() {
   const context = useAuth();
+  const contextCampaign = useCampaign();
   const { Logout } = useAuth();
   const [tooltipisOpen, setTooltipIsOpen] = useState(false);
 
@@ -32,7 +34,12 @@ function Header() {
         />
         <div className={tooltipisOpen ? "" : "isHidden"}>
           <a href="/">Campanhas</a>
-          <a href="/fichas">Fichas</a>
+          {context.user.id === contextCampaign.campaign.masterId ? (
+            <a href="/todas-as-fichas">Fichas</a>
+          ) : (
+            <a href="/ficha">Ficha</a>
+          )}
+
           <a href="/imagens">Imagens</a>
           <a onClick={handleLogout} href="/">
             Sair

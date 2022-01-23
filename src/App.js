@@ -2,6 +2,7 @@ import React from "react";
 import { createGlobalStyle } from "styled-components";
 import Routes from "./routes";
 import { AuthProvider } from "./contexts/auth";
+import { CampaignProvider } from "./contexts/campaignContext";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -14,8 +15,10 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return (
     <AuthProvider>
-      <Routes />
-      <GlobalStyle />
+      <CampaignProvider>
+        <Routes />
+        <GlobalStyle />
+      </CampaignProvider>
     </AuthProvider>
   );
 }
