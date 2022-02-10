@@ -34,13 +34,43 @@ export const Content = styled.div`
     color: #797979;
   }
 
-  div {
+  > div {
     width: 80%;
     margin-top: 50px;
+    display: flex;
 
-    a {
-      margin-bottom: 20px 0;
-      color: #797979;
+    .listChar {
+      width: 80%;
+      a {
+        margin-bottom: 20px 0;
+        color: #797979;
+      }
+    }
+
+    .addChar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      a {
+        width: 100px;
+        background: #8ac1d3;
+        border-radius: 5px;
+        border: none;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        font-family: "Prociono";
+        transition: background-color 0.2s;
+        margin: 20px 0;
+        padding: 10px;
+        text-decoration: none;
+        text-align: center;
+
+        :hover {
+          background-color: #5aaeca;
+        }
+      }
     }
   }
 `;

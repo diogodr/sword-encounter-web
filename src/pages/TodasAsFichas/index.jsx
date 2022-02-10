@@ -23,9 +23,14 @@ function TodasAsFichas() {
       <Content>
         <h1>Todas as Fichas</h1>
         <div>
-          {characters?.map((character) => (
-            <a href="/ficha">{character.id}</a>
-          ))}
+          <div className="listChar">
+            {characters?.map((character) => (
+              <a href="/ficha">{character.attributes[0].value}</a>
+            ))}
+          </div>
+          <div className="addChar">
+            <a href="#">Adicionar Personagem</a>
+          </div>
         </div>
       </Content>
     </Container>

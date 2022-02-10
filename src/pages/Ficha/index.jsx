@@ -2,17 +2,43 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/auth";
 import { useCampaign } from "../../contexts/campaignContext";
 import api from "../../services/api";
+import Modal from "react-modal";
+import closeModalButton from "../../assets/x.png";
 
 import { Container, Content } from "./styles";
+import Loader from "../../components/Loader";
+
+const customStyles = {
+  content: {
+    width: "250px",
+    height: "250px",
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    position: "relative",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    color: "#797979",
+  },
+};
 
 function Ficha() {
   const contextCampaign = useCampaign();
   const contextAuth = useAuth();
   const [character, setCharacter] = useState();
   const [body, setBody] = useState([]);
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [removeLoading, setRemoveLoading] = useState(false);
 
   useEffect(() => {
     api.get(`/characters`).then((response) => {
+      setRemoveLoading(false);
       const filteredCharacters = response.data.filter(
         (filteredCharacter) =>
           filteredCharacter.campaignId === contextCampaign.campaign.id
@@ -23,6 +49,7 @@ function Ficha() {
       );
       setCharacter(char);
       initBody(char);
+      setRemoveLoading(true);
     });
   }, []);
 
@@ -48,9 +75,22 @@ function Ficha() {
     setBody(newBody);
   }
 
-  function saveAttributes(event) {
+  async function saveAttributes(event) {
+    setRemoveLoading(false);
     event.preventDefault();
-    console.log("BODY", body);
+    const putBody = { ...character, attributes: body };
+
+    await api.put(`/characters/${character.id}`, putBody);
+    setRemoveLoading(true);
+    openModal();
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
   }
 
   return (
@@ -72,8 +112,32 @@ function Ficha() {
             );
           })}
           <button>Salvar</button>
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            style={customStyles}
+            contentLabel="Example Modal"
+          >
+            <img
+              width="14px"
+              height="14px"
+              src={closeModalButton}
+              alt="fechar modal"
+              style={{
+                position: "absolute",
+                top: "8px",
+                right: "8px",
+                cursor: "pointer",
+              }}
+              onClick={closeModal}
+            />
+            <h1 style={{ marginTop: "8px", fontSize: "20px" }}>
+              Alterações salvas com sucesso!
+            </h1>
+          </Modal>
         </form>
       </Content>
+      {!removeLoading && <Loader />}
     </Container>
   );
 }

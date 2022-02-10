@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.form`
+export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,6 +18,11 @@ export const Content = styled.form`
   width: 50%;
   height: 100%;
   margin-left: 20px;
+
+  div {
+    display: flex;
+    align-items: center;
+  }
 `;
 
 export const Input = styled.input`
@@ -65,6 +70,7 @@ export const SubmitButton = styled.button`
   cursor: pointer;
   font-family: "Prociono";
   transition: background-color 0.2s;
+  margin-top: 20px;
 
   :hover {
     background-color: #5aaeca;
