@@ -85,3 +85,29 @@ export const Content = styled.form`
     }
   }
 `;
+
+export const CreateCampaignButton = styled.a`
+  position: absolute;
+  top: 100px;
+  right: 200px;
+  width: 100px;
+  height: 100px;
+  background: #8ac1d3;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: "Prociono";
+  transition: background-color 0.2s;
+  margin: 20px 0;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  :hover {
+    background-color: #5aaeca;
+  }
+`;

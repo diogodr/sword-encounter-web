@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/auth";
 import api from "../../services/api";
 
-import { Container, Content } from "./styles";
+import { Container, Content, CreateCampaignButton } from "./styles";
 import { useCampaign } from "../../contexts/campaignContext";
 
 function Campagnes() {
@@ -38,6 +38,9 @@ function Campagnes() {
           ))}
         </ul>
       </Content>
+      <CreateCampaignButton href="www.google.com">
+        Criar Campanha
+      </CreateCampaignButton>
     </Container>
   );
 }

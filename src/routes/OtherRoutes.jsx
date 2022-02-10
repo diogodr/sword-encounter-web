@@ -7,6 +7,7 @@ import CreateFichas from "../pages/CreateFichas";
 import Header from "../components/Header";
 import Home from "../pages/Home";
 import TodasAsFichas from "../pages/TodasAsFichas";
+import CreateCampaign from "../pages/CreateCampaign";
 
 function OtherRoutes() {
   return (
@@ -18,6 +19,7 @@ function OtherRoutes() {
         <Route path="/ficha" element={<Ficha />} />
         <Route path="/todas-as-fichas" element={<TodasAsFichas />} />
         <Route path="/criar-fichas" element={<CreateFichas />} />
+        <Route path="/criar-campanhas" element={<CreateCampaign />} />
       </Routes>
       <Header />
     </BrowserRouter>
