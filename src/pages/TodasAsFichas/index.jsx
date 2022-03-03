@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useCampaign } from "../../contexts/campaignContext";
 import api from "../../services/api";
+import { Link } from "react-router-dom";
 
 import { Container, Content } from "./styles";
 
@@ -25,7 +26,10 @@ function TodasAsFichas() {
         <div>
           <div className="listChar">
             {characters?.map((character) => (
-              <a href="/ficha">{character.attributes[0].value}</a>
+              <Link to={{ pathname: `/ficha/${character.id}` }}>
+                {character.attributes[0].value}
+              </Link>
+              // <Link to="/ficha">{character.attributes[0].value}</Link>
             ))}
           </div>
           <div className="addChar">

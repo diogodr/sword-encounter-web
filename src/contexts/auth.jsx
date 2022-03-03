@@ -27,6 +27,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [status, setStatus] = useState("");
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [isMaster, setIsMaster] = useState(false);
 
   async function Login(email, password) {
     await api
@@ -50,13 +51,21 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("@App:user", JSON.stringify(user));
   }
 
+  function userTypeVerification(payloadIsMaster) {
+    setIsMaster(payloadIsMaster);
+    localStorage.setItem("@App:isMaster", JSON.stringify(payloadIsMaster));
+  }
+
   useEffect(() => {
     const storagedUser = localStorage.getItem("@App:user");
-    // const storagedToken = localStorage.getItem('@App:token');
+    const storagedIsMaster = localStorage.getItem("@App:isMaster");
+
+    if (storagedIsMaster) {
+      setIsMaster(JSON.parse(storagedIsMaster));
+    }
 
     if (storagedUser) {
       setUser(JSON.parse(storagedUser));
-      // api.defaults.headers.Authorization = `Bearer ${storagedToken}`;
     }
   }, []);
 
@@ -71,7 +80,14 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ signed: Boolean(user), user, Login, Logout }}
+      value={{
+        signed: Boolean(user),
+        user,
+        userTypeVerification,
+        Login,
+        Logout,
+        isMaster,
+      }}
     >
       {children}
       <Modal

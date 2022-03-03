@@ -3,8 +3,12 @@ import React from "react";
 import { Container, Grade, Mapa } from "./styles";
 
 import imgGrade from "../../assets/grade.svg";
+import { useAuth } from "../../contexts/auth";
 
 function Map() {
+  const contextAuth = useAuth();
+
+  console.log("É MESTRE?", contextAuth.isMaster);
   return (
     <Container>
       <Mapa

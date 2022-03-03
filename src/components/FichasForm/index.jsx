@@ -7,8 +7,8 @@ import { useAuth } from "../../contexts/auth";
 function FichasForm() {
   const contextCampaign = useCampaign();
   const contextAuth = useAuth();
-  const [nome, setNome] = useState();
-  const [email, setEmail] = useState();
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
   const [character, setCharacter] = useState("player");
 
   function initAttributes() {
@@ -24,6 +24,7 @@ function FichasForm() {
           value: null,
         });
       }
+      return attr;
     });
     return defaultAttr;
   }
@@ -41,7 +42,7 @@ function FichasForm() {
       alert("Usuário não cadastrado");
       return;
     }
-    const response = await api.post("/characters", {
+    await api.post("/characters", {
       campaignId: contextCampaign.campaign.id,
       playerId: player !== undefined ? player.id : contextAuth.user.id,
       attributes: initAttributes(),

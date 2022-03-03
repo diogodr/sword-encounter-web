@@ -7,6 +7,7 @@ import closeModalButton from "../../assets/x.png";
 
 import { Container, Content } from "./styles";
 import Loader from "../../components/Loader";
+import { useParams } from "react-router-dom";
 
 const customStyles = {
   content: {
@@ -36,33 +37,50 @@ function Ficha() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [removeLoading, setRemoveLoading] = useState(false);
 
-  useEffect(() => {
+  const { charId } = useParams();
+
+  function getCharacter() {
     api.get(`/characters`).then((response) => {
       setRemoveLoading(false);
       const filteredCharacters = response.data.filter(
         (filteredCharacter) =>
           filteredCharacter.campaignId === contextCampaign.campaign.id
       );
-      const char = filteredCharacters.find(
-        (filteredCharacter) =>
-          filteredCharacter.playerId === contextAuth.user.id
-      );
+      console.log("FILTERED CAR => ", filteredCharacters);
+      let char = {};
+      if (charId) {
+        char = filteredCharacters.find(
+          (filteredCharacter) => filteredCharacter.id === charId
+        );
+      } else {
+        char = filteredCharacters.find(
+          (filteredCharacter) =>
+            filteredCharacter.playerId === contextAuth.user.id
+        );
+      }
+
       setCharacter(char);
-      initBody(char);
+
+      setBody(char.attributes);
+      // initBody(char);
       setRemoveLoading(true);
     });
+  }
+
+  useEffect(() => {
+    console.log("PARAMCHARACTER:", charId);
+    getCharacter();
   }, []);
 
   function initBody(char) {
-    let newBody = [];
-
-    contextCampaign?.campaign?.attributes?.map((attribute) => {
-      const filteredAttribute = char?.attributes?.find(
-        (charAttr) => charAttr.description === attribute.description
-      );
-      newBody = [...newBody, filteredAttribute];
-      setBody(newBody);
-    });
+    // let newBody = [];
+    // contextCampaign?.campaign?.attributes?.map((attribute) => {
+    //   const filteredAttribute = char?.attributes?.find(
+    //     (charAttr) => charAttr.description === attribute.description
+    //   );
+    //   newBody = [...newBody, filteredAttribute];
+    // });
+    setBody(char?.attributes);
   }
 
   function setBodyAttribute(attribute, value) {
@@ -100,7 +118,7 @@ function Ficha() {
         <form onSubmit={saveAttributes}>
           {body.map((attribute) => {
             return (
-              <div>
+              <div key={attribute?.description}>
                 <label>{attribute?.description}: </label>
                 <input
                   value={attribute?.value}
@@ -137,7 +155,7 @@ function Ficha() {
           </Modal>
         </form>
       </Content>
-      {!removeLoading && <Loader />}
+      {/* {!removeLoading && <Loader />} */}
     </Container>
   );
 }

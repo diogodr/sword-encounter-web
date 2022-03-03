@@ -4,25 +4,46 @@ import api from "../../services/api";
 
 import { Container, Content, CreateCampaignButton } from "./styles";
 import { useCampaign } from "../../contexts/campaignContext";
+import { useLoader } from "../../contexts/contextLoader";
+import Loader from "../../components/Loader";
 
 function Campagnes() {
   const [campaigns, setCampagnes] = useState();
 
+  const contextLoader = useLoader();
   const context = useAuth();
-
   const contextCampaign = useCampaign();
 
   // Método para chamar campanhas
-  useEffect(() => {
+  function getCampaign() {
+    contextLoader.turnOn();
+    console.log("Listagem Campaign before");
     const userId = context.user.id;
     api.get(`campaigns/user/${userId}`).then((response) => {
       setCampagnes(response.data);
+      contextLoader.turnOff();
+      console.log("Listagem Campaign after");
     });
+  }
+
+  useEffect(() => {
+    getCampaign();
   }, []);
 
   const selectCampaign = (campaign) => {
+    const variableIsMaster = context.user.id === campaign.masterId;
+    context.userTypeVerification(variableIsMaster);
+
     contextCampaign.SaveSelectedCampaign(campaign);
   };
+
+  const [loaderOn, setLoaderOn] = useState(false);
+
+  useEffect(() => {
+    setLoaderOn(contextLoader.loader);
+  }, [contextLoader.loader]);
+
+  console.log("Loader / OtherRoutes => ", loaderOn);
 
   return (
     <Container>
@@ -38,9 +59,10 @@ function Campagnes() {
           ))}
         </ul>
       </Content>
-      <CreateCampaignButton href="www.google.com">
+      <CreateCampaignButton href="criar-campanhas">
         Criar Campanha
       </CreateCampaignButton>
+      {/* {loaderOn && <Loader />} */}
     </Container>
   );
 }

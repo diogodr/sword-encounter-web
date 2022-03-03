@@ -9,6 +9,8 @@ export const LoaderContainer = styled.div`
   position: fixed;
   background: #000;
   opacity: 0.7;
+  left: 0;
+  top: 0;
 `;
 
 export const LoaderImg = styled.img`

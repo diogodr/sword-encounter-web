@@ -4,15 +4,21 @@ import { useAuth } from "../../contexts/auth";
 import logo from "../../assets/logo.svg";
 import { useState } from "react";
 import { Container, Content } from "./styles";
+import { useLoader } from "../../contexts/contextLoader";
 
 function LoginScreen() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
+  const contextLoader = useLoader();
   const context = useAuth();
 
   function handleLogin(event) {
+    contextLoader.turnOn();
     event.preventDefault();
+    setTimeout(() => {
+      contextLoader.turnOff();
+    }, 5000);
     context.Login(email, password);
   }
 

@@ -3,6 +3,8 @@ import { createGlobalStyle } from "styled-components";
 import Routes from "./routes";
 import { AuthProvider } from "./contexts/auth";
 import { CampaignProvider } from "./contexts/campaignContext";
+import { LoaderProvider } from "./contexts/contextLoader";
+import UserTypeContext from "./contexts/contextUserType";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -14,12 +16,14 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   return (
-    <AuthProvider>
-      <CampaignProvider>
-        <Routes />
-        <GlobalStyle />
-      </CampaignProvider>
-    </AuthProvider>
+    <LoaderProvider>
+      <AuthProvider>
+        <CampaignProvider>
+          <Routes />
+          <GlobalStyle />
+        </CampaignProvider>
+      </AuthProvider>
+    </LoaderProvider>
   );
 }
 

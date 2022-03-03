@@ -17,6 +17,7 @@ function OtherRoutes() {
         <Route path="/dashboard" element={<Home />} />
         <Route path="/imagens" element={<Images />} />
         <Route path="/ficha" element={<Ficha />} />
+        <Route path="/ficha/:charId" element={<Ficha />} />
         <Route path="/todas-as-fichas" element={<TodasAsFichas />} />
         <Route path="/criar-fichas" element={<CreateFichas />} />
         <Route path="/criar-campanhas" element={<CreateCampaign />} />
