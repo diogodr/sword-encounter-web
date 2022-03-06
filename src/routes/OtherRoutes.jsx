@@ -8,8 +8,11 @@ import Header from "../components/Header";
 import Home from "../pages/Home";
 import TodasAsFichas from "../pages/TodasAsFichas";
 import CreateCampaign from "../pages/CreateCampaign";
+import { useAuth } from "../contexts/auth";
 
 function OtherRoutes() {
+  const authContext = useAuth();
+
   return (
     <BrowserRouter>
       <Routes>

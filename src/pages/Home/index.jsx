@@ -1,5 +1,5 @@
 import React from "react";
-import Chat from "../../components/Chat";
+import DiceRoll from "../../components/DiceRoll";
 import Map from "../../components/Map";
 
 import { Container, Content } from "./styles";
@@ -10,7 +10,7 @@ function Home() {
       <Container>
         <Content>
           <Map />
-          <Chat />
+          <DiceRoll />
         </Content>
       </Container>
     </>

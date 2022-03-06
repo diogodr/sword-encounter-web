@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../../contexts/auth";
 import api from "../../services/api";
 import Modal from "react-modal";
@@ -12,7 +12,7 @@ import {
   ModalButton,
   SubmitButton,
 } from "./styles";
-import { useLoader } from "../../contexts/contextLoader";
+import { useCampaign } from "../../contexts/campaignContext";
 
 const customStyles = {
   content: {
@@ -34,11 +34,11 @@ const customStyles = {
 
 function CampaignForm() {
   const [campaignName, setCampaignName] = useState("");
-  const contextAuth = useAuth();
   const [modalIsOpen, setIsOpen] = useState(false);
   const [newAttribute, setNewAttribute] = useState("");
   const [attributes, setAttributes] = useState([]);
-  const contextLoader = useLoader();
+  const contextAuth = useAuth();
+  const contextCampaign = useCampaign();
 
   function openModal() {
     setIsOpen(true);
@@ -51,7 +51,6 @@ function CampaignForm() {
   async function createCharacter(event) {
     event.preventDefault();
 
-    contextLoader.turnOn();
     const response = await api.post("/campaigns", {
       name: campaignName,
       masterId: contextAuth.user.id,
@@ -59,7 +58,7 @@ function CampaignForm() {
     });
     setCampaignName("");
     openModal();
-    await contextLoader.turnOff();
+
     return response;
   }
 
@@ -82,6 +81,14 @@ function CampaignForm() {
     );
     setAttributes(attrs);
   }
+
+  function populateCampaign() {
+    console.log("CONTEXT CAMPAIGN: ", contextCampaign.campaign);
+  }
+
+  useEffect(() => {
+    populateCampaign();
+  }, []);
 
   return (
     <>

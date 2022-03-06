@@ -62,7 +62,6 @@ function Ficha() {
       setCharacter(char);
 
       setBody(char.attributes);
-      // initBody(char);
       setRemoveLoading(true);
     });
   }
@@ -71,17 +70,6 @@ function Ficha() {
     console.log("PARAMCHARACTER:", charId);
     getCharacter();
   }, []);
-
-  function initBody(char) {
-    // let newBody = [];
-    // contextCampaign?.campaign?.attributes?.map((attribute) => {
-    //   const filteredAttribute = char?.attributes?.find(
-    //     (charAttr) => charAttr.description === attribute.description
-    //   );
-    //   newBody = [...newBody, filteredAttribute];
-    // });
-    setBody(char?.attributes);
-  }
 
   function setBodyAttribute(attribute, value) {
     const newBody = body.map((attr) => {
@@ -155,7 +143,7 @@ function Ficha() {
           </Modal>
         </form>
       </Content>
-      {/* {!removeLoading && <Loader />} */}
+      {!removeLoading && <Loader />}
     </Container>
   );
 }

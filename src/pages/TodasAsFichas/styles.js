@@ -41,8 +41,10 @@ export const Content = styled.div`
 
     .listChar {
       width: 80%;
+      display: flex;
+      flex-direction: column;
       a {
-        margin-bottom: 20px 0;
+        margin-bottom: 12px;
         color: #797979;
       }
     }

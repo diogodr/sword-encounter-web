@@ -70,7 +70,7 @@ function FichasForm() {
               checked={character === "master"}
               onClick={() => setCharacter("master")}
             />
-            <label for="mestre">Mestre</label>
+            <label for="mestre">NPC</label>
           </div>
           <div>
             <input

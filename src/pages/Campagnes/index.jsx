@@ -5,6 +5,9 @@ import api from "../../services/api";
 import { Container, Content, CreateCampaignButton } from "./styles";
 import { useCampaign } from "../../contexts/campaignContext";
 import { useLoader } from "../../contexts/contextLoader";
+
+import { Link } from "react-router-dom";
+
 import Loader from "../../components/Loader";
 
 function Campagnes() {
@@ -43,8 +46,6 @@ function Campagnes() {
     setLoaderOn(contextLoader.loader);
   }, [contextLoader.loader]);
 
-  console.log("Loader / OtherRoutes => ", loaderOn);
-
   return (
     <Container>
       <Content>
@@ -54,6 +55,9 @@ function Campagnes() {
             <li key={campaign?.id}>
               <div onClick={() => selectCampaign(campaign)}>
                 <a href="/dashboard">{campaign?.name}</a>
+              </div>
+              <div onClick={() => selectCampaign(campaign)}>
+                <a href="/criar-campanhas">Editar</a>
               </div>
             </li>
           ))}
