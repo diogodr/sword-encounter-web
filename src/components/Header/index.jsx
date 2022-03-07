@@ -32,13 +32,6 @@ function Header() {
         />
         <div className={tooltipisOpen ? "" : "isHidden"}>
           <a href="/">Campanhas</a>
-          {context.isMaster ? (
-            <a href="/todas-as-fichas">Todas as fichas</a>
-          ) : (
-            <a href="/ficha">Ficha</a>
-          )}
-
-          <a href="/imagens">Imagens</a>
           <a onClick={handleLogout} href="/">
             Sair
           </a>
