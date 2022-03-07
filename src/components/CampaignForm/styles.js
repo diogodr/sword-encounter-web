@@ -23,6 +23,24 @@ export const Content = styled.form`
     display: flex;
     align-items: center;
   }
+
+  h2 {
+    color: #797979;
+    margin: 15px 0 10px 0;
+  }
+
+  .attr-container {
+    margin-bottom: 8px;
+
+    p {
+      color: #797979;
+    }
+
+    img {
+      width: 20px;
+      margin-left: 12px;
+    }
+  }
 `;
 
 export const Input = styled.input`

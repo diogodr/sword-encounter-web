@@ -4,6 +4,8 @@ import api from "../../services/api";
 import Modal from "react-modal";
 import { Link } from "react-router-dom";
 
+import trashIcon from "../../assets/trash.svg";
+
 import {
   AddButton,
   Container,
@@ -48,18 +50,41 @@ function CampaignForm() {
     setIsOpen(false);
   }
 
-  async function createCharacter(event) {
+  async function saveCampaign(event) {
     event.preventDefault();
 
-    const response = await api.post("/campaigns", {
+    const body = {
       name: campaignName,
       masterId: contextAuth.user.id,
       attributes: attributes,
-    });
-    setCampaignName("");
-    openModal();
+    };
 
-    return response;
+    if (contextCampaign.campaign.id) {
+      update(body);
+    } else {
+      create(body);
+    }
+    openModal();
+  }
+
+  async function create(body) {
+    const response = await api.post("/campaigns", body);
+    setCampaignName("");
+    console.log("CREATE: ", response);
+  }
+
+  async function update(body) {
+    const newBody = {
+      ...contextCampaign.campaign,
+      name: body.name,
+      attributes: body.attributes,
+    };
+
+    const response = await api.put(
+      `/campaigns/${contextCampaign.campaign.id}`,
+      newBody
+    );
+    console.log("CREATE: ", response);
   }
 
   function addAtrribute() {
@@ -83,7 +108,11 @@ function CampaignForm() {
   }
 
   function populateCampaign() {
-    console.log("CONTEXT CAMPAIGN: ", contextCampaign.campaign);
+    if (contextCampaign.campaign.name) {
+      console.log("CONTEXT CAMPAIGN: ", contextCampaign.campaign.name);
+      setAttributes(contextCampaign.campaign.attributes);
+      setCampaignName(contextCampaign.campaign.name);
+    }
   }
 
   useEffect(() => {
@@ -94,7 +123,7 @@ function CampaignForm() {
     <>
       <Container>
         <h1>Criação de campanhas</h1>
-        <Content onSubmit={createCharacter}>
+        <Content onSubmit={saveCampaign}>
           <Input
             value={campaignName}
             onChange={(event) => setCampaignName(event.target.value)}
@@ -108,13 +137,17 @@ function CampaignForm() {
             type="text"
           />
 
+          <h2>Atributos da campanha</h2>
           {attributes.map((attribute) => (
-            <>
+            <div className="attr-container">
               <p>{attribute.description}</p>
-              <div onClick={() => removeAttribute(attribute)}>
-                Excluir atributo
-              </div>
-            </>
+              <img
+                className="trash-icon"
+                src={trashIcon}
+                onClick={() => removeAttribute(attribute)}
+                alt="Lixeira"
+              />
+            </div>
           ))}
 
           <AddButton onClick={addAtrribute}>Adicionar Atributo</AddButton>

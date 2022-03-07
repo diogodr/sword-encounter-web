@@ -4,27 +4,18 @@ import api from "../../services/api";
 
 import { Container, Content, CreateCampaignButton } from "./styles";
 import { useCampaign } from "../../contexts/campaignContext";
-import { useLoader } from "../../contexts/contextLoader";
-
-import { Link } from "react-router-dom";
-
-import Loader from "../../components/Loader";
 
 function Campagnes() {
   const [campaigns, setCampagnes] = useState();
-
-  const contextLoader = useLoader();
   const context = useAuth();
   const contextCampaign = useCampaign();
 
   // Método para chamar campanhas
   function getCampaign() {
-    contextLoader.turnOn();
     console.log("Listagem Campaign before");
     const userId = context.user.id;
     api.get(`campaigns/user/${userId}`).then((response) => {
       setCampagnes(response.data);
-      contextLoader.turnOff();
       console.log("Listagem Campaign after");
     });
   }
@@ -40,11 +31,11 @@ function Campagnes() {
     contextCampaign.SaveSelectedCampaign(campaign);
   };
 
-  const [loaderOn, setLoaderOn] = useState(false);
-
-  useEffect(() => {
-    setLoaderOn(contextLoader.loader);
-  }, [contextLoader.loader]);
+  async function handleDelete(campaingId) {
+    const response = await api.delete(`/campaigns/${campaingId}`);
+    console.log("DELETE REPONSE: ", response);
+    window.location.reload();
+  }
 
   return (
     <Container>
@@ -56,14 +47,32 @@ function Campagnes() {
               <div onClick={() => selectCampaign(campaign)}>
                 <a href="/dashboard">{campaign?.name}</a>
               </div>
-              <div onClick={() => selectCampaign(campaign)}>
-                <a href="/criar-campanhas">Editar</a>
-              </div>
+              {context.user.id === campaign.masterId && (
+                <div className="container-icons">
+                  <div onClick={() => selectCampaign(campaign)}>
+                    <a href="/criar-campanhas">
+                      <img
+                        src="https://img.icons8.com/external-anggara-line-anggara-putra/32/ffffff/external-edit-ecommerce-anggara-line-anggara-putra.png"
+                        alt="Lápis"
+                      />
+                    </a>
+                  </div>
+                  <img
+                    className="trash-icon"
+                    src="https://img.icons8.com/pastel-glyph/64/ffffff/trash.png"
+                    onClick={() => handleDelete(campaign.id)}
+                    alt="Lixeira"
+                  />
+                </div>
+              )}
             </li>
           ))}
         </ul>
       </Content>
-      <CreateCampaignButton href="criar-campanhas">
+      <CreateCampaignButton
+        onClick={() => selectCampaign({})}
+        href="criar-campanhas"
+      >
         Criar Campanha
       </CreateCampaignButton>
       {/* {loaderOn && <Loader />} */}

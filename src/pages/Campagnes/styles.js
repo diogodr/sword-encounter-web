@@ -54,12 +54,26 @@ export const Content = styled.form`
       list-style: none;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
       margin-bottom: 12px;
+      padding: 0 9px;
+
+      .container-icons {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        .trash-icon {
+          width: 20px;
+        }
+      }
 
       a {
         text-decoration: none;
         color: #fff;
+
+        img {
+          width: 20px;
+        }
       }
 
       :hover {
