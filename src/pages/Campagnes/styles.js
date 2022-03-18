@@ -58,6 +58,10 @@ export const Content = styled.form`
       margin-bottom: 12px;
       padding: 0 9px;
 
+      @media (max-width: 425px) {
+        font-size: 13px;
+      }
+
       .container-icons {
         display: flex;
         align-items: center;
@@ -123,5 +127,9 @@ export const CreateCampaignButton = styled.a`
 
   :hover {
     background-color: #5aaeca;
+  }
+
+  @media (max-width: 425px) {
+    display: none;
   }
 `;

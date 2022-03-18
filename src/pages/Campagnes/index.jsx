@@ -4,20 +4,23 @@ import api from "../../services/api";
 
 import { Container, Content, CreateCampaignButton } from "./styles";
 import { useCampaign } from "../../contexts/campaignContext";
+import Loader from "../../components/Loader";
 
 function Campagnes() {
   const [campaigns, setCampagnes] = useState();
   const context = useAuth();
   const contextCampaign = useCampaign();
+  const [loaderOn, setLoaderOn] = useState(false);
 
-  // Método para chamar campanhas
   function getCampaign() {
+    setLoaderOn(true);
     console.log("Listagem Campaign before");
     const userId = context.user.id;
     api.get(`campaigns/user/${userId}`).then((response) => {
       setCampagnes(response.data);
       console.log("Listagem Campaign after");
     });
+    setLoaderOn(false);
   }
 
   useEffect(() => {
@@ -75,7 +78,7 @@ function Campagnes() {
       >
         Criar Campanha
       </CreateCampaignButton>
-      {/* {loaderOn && <Loader />} */}
+      {loaderOn && <Loader />}
     </Container>
   );
 }
