@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/auth";
-import { useCampaign } from "../../contexts/campaignContext";
+import CampaignContext, { useCampaign } from "../../contexts/campaignContext";
 import api from "../../services/api";
 import Modal from "react-modal";
 import closeModalButton from "../../assets/x.png";
@@ -46,7 +46,6 @@ function Ficha() {
         (filteredCharacter) =>
           filteredCharacter.campaignId === contextCampaign.campaign.id
       );
-      console.log("FILTERED CAR => ", filteredCharacters);
       let char = {};
       if (charId) {
         char = filteredCharacters.find(
@@ -60,14 +59,26 @@ function Ficha() {
       }
 
       setCharacter(char);
-
-      setBody(char.attributes);
+      populateAttrs(contextCampaign.campaign.attributes, char.attributes);
       setRemoveLoading(true);
     });
   }
 
+  function populateAttrs(campaignAttrs, charAttrs) {
+    const newBody = campaignAttrs.map((campaignAttr) => {
+      charAttrs.map((charAttr) => {
+        if (campaignAttr.description === charAttr.description) {
+          campaignAttr.value = charAttr.value;
+        }
+        return charAttr;
+      });
+      return campaignAttr;
+    });
+
+    setBody(newBody);
+  }
+
   useEffect(() => {
-    console.log("PARAMCHARACTER:", charId);
     getCharacter();
   }, []);
 

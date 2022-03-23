@@ -11,7 +11,7 @@ const api = axios.create({
   httpAgent: new https.Agent({
     rejectUnauthorized: false,
   }),
-  baseURL: "https://sword-encounter-api.herokuapp.com/api",
+  baseURL: "https://sword-encounter-service.herokuapp.com/api",
 });
 
 export default api;

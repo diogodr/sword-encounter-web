@@ -53,10 +53,15 @@ function CampaignForm() {
   async function saveCampaign(event) {
     event.preventDefault();
 
+    let attrsBody = attributes;
+    if (!attributes.find((attribute) => attribute.description === "Nome")) {
+      attrsBody = [{ description: "Nome" }, ...attributes];
+    }
+
     const body = {
       name: campaignName,
       masterId: contextAuth.user.id,
-      attributes: attributes,
+      attributes: attrsBody,
     };
 
     if (contextCampaign.campaign.id) {
@@ -109,7 +114,6 @@ function CampaignForm() {
 
   function populateCampaign() {
     if (contextCampaign.campaign.name) {
-      console.log("CONTEXT CAMPAIGN: ", contextCampaign.campaign.name);
       setAttributes(contextCampaign.campaign.attributes);
       setCampaignName(contextCampaign.campaign.name);
     }

@@ -33,7 +33,7 @@ function TodasAsFichas() {
             ))}
           </div>
           <div className="addChar">
-            <a href="/criar-ficha">Adicionar Personagem</a>
+            <a href="/criar-fichas">Adicionar Personagem</a>
           </div>
         </div>
       </Content>

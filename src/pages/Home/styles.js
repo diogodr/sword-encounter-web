@@ -16,6 +16,11 @@ export const Content = styled.div`
   justify-content: space-between;
   padding: 90px 80px 0 80px;
   gap: 50px;
+
+  @media (max-width: 475px) {
+    flex-direction: column;
+    gap: 16px;
+  }
 `;
 
 export const RightSide = styled.div`
@@ -24,11 +29,16 @@ export const RightSide = styled.div`
   justify-content: space-between;
   flex-direction: column;
   height: 80vh;
+
+  @media (max-width: 425px) {
+    height: 37vh;
+    gap: 10px;
+  }
 `;
 
 export const Infos = styled.div`
   min-width: 300px;
-  height: 15vh;
+  height: 50px;
 
   background: #fff;
   backdrop-filter: blur(10px);

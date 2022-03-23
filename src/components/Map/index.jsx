@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
+import fileApi from "../../services/fileApi";
 
 import { Container, Mapa } from "./styles";
 
 function Map() {
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  function addMap() {
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+
+    const response = fileApi.post("/3/image", formData);
+    console.log("RESPONSE:", response.data);
+  }
   return (
     <Container>
       <div className="select-container">
@@ -18,7 +28,12 @@ function Map() {
           </select>
           <span className="focus"></span>
         </div>
-        <button>Adicionar mapa</button>
+        <input
+          type="file"
+          // value={selectedFile}
+          onChange={(e) => setSelectedFile(e.target.files[0])}
+        />
+        <button onClick={addMap}>Adicionar mapa</button>
       </div>
       <Mapa
         src="http://3.bp.blogspot.com/-h-OAO9JIMCA/U6SdPf1i8SI/AAAAAAAAAYA/MmCss-Udgig/s1600/10457884_10152470231476071_3391610058143746742_n.jpg"

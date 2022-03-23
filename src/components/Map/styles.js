@@ -18,6 +18,11 @@ export const Container = styled.div`
   justify-content: center;
   position: relative;
 
+  @media (max-width: 425px) {
+    min-width: 300px;
+    height: auto;
+  }
+
   .select-container {
     display: flex;
     align-items: center;
@@ -132,4 +137,8 @@ export const Mapa = styled.img`
   height: 90%;
   border-radius: 8px;
   margin-bottom: 12px;
+
+  @media (max-width: 425px) {
+    width: 95%;
+  }
 `;

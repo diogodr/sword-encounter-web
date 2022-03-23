@@ -4,7 +4,6 @@ import Routes from "./routes";
 import { AuthProvider } from "./contexts/auth";
 import { CampaignProvider } from "./contexts/campaignContext";
 import { LoaderProvider } from "./contexts/contextLoader";
-import UserTypeContext from "./contexts/contextUserType";
 
 const GlobalStyle = createGlobalStyle`
   * {
