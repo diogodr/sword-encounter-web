@@ -10,8 +10,21 @@ function Map() {
     const formData = new FormData();
     formData.append("image", selectedFile);
 
-    const response = fileApi.post("/3/image", formData);
-    console.log("RESPONSE:", response.data);
+    fetch("https://api.imgur.com/3/image", {
+      method: "post",
+      headers: {
+        Authorization: "Client-ID bceaf7a66e6b3a0",
+      },
+      body: formData,
+    })
+      .then((data) => data.json())
+      .then((data) => console.log(data));
+
+    //TODO
+    // Após receber o response fazer um put para campaigns enviando o id da campanha e adicionando o response,link no body
+
+    // const response = fileApi.post("/3/image", formData);
+    // console.log("RESPONSE:", response.data);
   }
   return (
     <Container>
