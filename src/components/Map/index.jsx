@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { useCampaign } from "../../contexts/campaignContext";
+import api from "../../services/api";
 import fileApi from "../../services/fileApi";
 
 import { Container, Mapa } from "./styles";
 
 function Map() {
   const [selectedFile, setSelectedFile] = useState(null);
+  const contextCampaign = useCampaign();
 
   async function addMap() {
     const formData = new FormData();
@@ -13,9 +16,13 @@ function Map() {
     const response = await fileApi.post("/3/image", formData);
     console.log("RESPONSE:", response.data);
 
-    //TODO
-    // Após receber o response fazer um put para campaigns enviando o id da
-    // campanha e adicionando o response,link no body
+    let body = contextCampaign.campaign;
+    body.maps.push(response.data.link);
+    const response2 = await api.put(
+      `/campaigns/${contextCampaign.campaign.id}`,
+      body
+    );
+    console.log(response2);
   }
 
   return (
