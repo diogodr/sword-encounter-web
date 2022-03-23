@@ -25,6 +25,7 @@ function Map() {
 
     const response = fileApi.post("/3/image", formData);
     console.log("RESPONSE:", response.data);
+    console.log("RESPONSE 2:", response);
   }
 
   return (
