@@ -17,7 +17,7 @@ function Map() {
     console.log("RESPONSE:", response.data);
 
     const body = contextCampaign.campaign;
-    body.maps.push(response.data.link);
+    body.maps.push(response.data.data.link);
     console.log(body);
     const response2 = await api.put(
       `/campaigns/${contextCampaign.campaign.id}`,
