@@ -16,8 +16,9 @@ function Map() {
     const response = await fileApi.post("/3/image", formData);
     console.log("RESPONSE:", response.data);
 
-    let body = contextCampaign.campaign;
+    const body = contextCampaign.campaign;
     body.maps.push(response.data.link);
+    console.log(body);
     const response2 = await api.put(
       `/campaigns/${contextCampaign.campaign.id}`,
       body
