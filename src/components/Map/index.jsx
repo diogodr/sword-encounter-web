@@ -6,26 +6,16 @@ import { Container, Mapa } from "./styles";
 function Map() {
   const [selectedFile, setSelectedFile] = useState(null);
 
-  function addMap() {
+  async function addMap() {
     const formData = new FormData();
     formData.append("image", selectedFile);
 
-    // fetch("https://api.imgur.com/3/image", {
-    //   method: "post",
-    //   headers: {
-    //     Authorization: "Client-ID bceaf7a66e6b3a0",
-    //   },
-    //   body: formData,
-    // })
-    //   .then((data) => data.json())
-    //   .then((data) => console.log(data));
+    const response = await fileApi.post("/3/image", formData);
+    console.log("RESPONSE:", response.data);
 
     //TODO
-    // Após receber o response fazer um put para campaigns enviando o id da campanha e adicionando o response,link no body
-
-    const response = fileApi.post("/3/image", formData);
-    console.log("RESPONSE:", response.data);
-    console.log("RESPONSE 2:", response);
+    // Após receber o response fazer um put para campaigns enviando o id da
+    // campanha e adicionando o response,link no body
   }
 
   return (
