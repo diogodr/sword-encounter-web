@@ -5,21 +5,20 @@ import logo from "../../assets/logo.svg";
 import { useState } from "react";
 import { Container, Content } from "./styles";
 import { useLoader } from "../../contexts/contextLoader";
+import Loader from "../../components/Loader";
 
 function LoginScreen() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-
-  const contextLoader = useLoader();
+  const [loader, setLoader] = useState(false);
   const context = useAuth();
 
-  function handleLogin(event) {
-    contextLoader.turnOn();
+  async function handleLogin(event) {
+    setLoader(true);
+    console.log("LOADER: ", loader);
     event.preventDefault();
-    setTimeout(() => {
-      contextLoader.turnOff();
-    }, 5000);
-    context.Login(email, password);
+    await context.Login(email, password);
+    setLoader(false);
   }
 
   return (
@@ -44,6 +43,7 @@ function LoginScreen() {
           Ainda não tem uma conta? <Link to="/cadastro">Crie uma conta</Link>
         </p>
       </Content>
+      {loader && <Loader />}
     </Container>
   );
 }

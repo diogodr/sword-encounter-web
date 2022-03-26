@@ -29,6 +29,35 @@ export const Container = styled.div`
     gap: 18px;
     margin: 12px 0;
 
+    input[type="file"] {
+      display: none;
+    }
+
+    .label-image {
+      width: 120px;
+      height: 33px;
+      background: #8ac1d3;
+      border-radius: 5px;
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      font-family: "Prociono";
+      transition: background-color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0 !important;
+
+      @media (max-width: 425px) {
+        display: none;
+      }
+
+      :hover {
+        background-color: #5aaeca;
+      }
+    }
+
     button {
       width: 120px;
       height: 33px;
@@ -40,6 +69,10 @@ export const Container = styled.div`
       cursor: pointer;
       font-family: "Prociono";
       transition: background-color 0.2s;
+
+      @media (max-width: 425px) {
+        display: none;
+      }
 
       :hover {
         background-color: #5aaeca;

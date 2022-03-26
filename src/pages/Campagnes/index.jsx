@@ -10,17 +10,17 @@ function Campagnes() {
   const [campaigns, setCampagnes] = useState();
   const context = useAuth();
   const contextCampaign = useCampaign();
-  const [loaderOn, setLoaderOn] = useState(false);
+  const [loader, setLoader] = useState(false);
 
-  function getCampaign() {
-    setLoaderOn(true);
+  async function getCampaign() {
+    setLoader(true);
     console.log("Listagem Campaign before");
     const userId = context.user.id;
-    api.get(`campaigns/user/${userId}`).then((response) => {
+    await api.get(`campaigns/user/${userId}`).then((response) => {
       setCampagnes(response.data);
       console.log("Listagem Campaign after");
     });
-    setLoaderOn(false);
+    setLoader(false);
   }
 
   useEffect(() => {
@@ -78,7 +78,7 @@ function Campagnes() {
       >
         Criar Campanha
       </CreateCampaignButton>
-      {loaderOn && <Loader />}
+      {loader && <Loader />}
     </Container>
   );
 }

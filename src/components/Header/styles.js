@@ -32,6 +32,10 @@ export const Container = styled.div`
       color: #797979;
       font-size: 14px;
       font-family: "Prociono";
+
+      @media (max-width: 425px) {
+        display: none;
+      }
     }
 
     img {
@@ -51,6 +55,10 @@ export const Container = styled.div`
       flex-direction: column;
       justify-content: space-evenly;
       transition: 0.2s;
+
+      @media (max-width: 425px) {
+        left: -166px;
+      }
 
       a {
         color: #797979;

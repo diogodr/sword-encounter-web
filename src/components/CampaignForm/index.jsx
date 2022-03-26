@@ -15,6 +15,7 @@ import {
   SubmitButton,
 } from "./styles";
 import { useCampaign } from "../../contexts/campaignContext";
+import Loader from "../Loader";
 
 const customStyles = {
   content: {
@@ -41,6 +42,7 @@ function CampaignForm() {
   const [attributes, setAttributes] = useState([]);
   const contextAuth = useAuth();
   const contextCampaign = useCampaign();
+  const [loader, setLoader] = useState(false);
 
   function openModal() {
     setIsOpen(true);
@@ -73,12 +75,15 @@ function CampaignForm() {
   }
 
   async function create(body) {
+    setLoader(true);
     const response = await api.post("/campaigns", body);
     setCampaignName("");
     console.log("CREATE: ", response);
+    setLoader(false);
   }
 
   async function update(body) {
+    setLoader(true);
     const newBody = {
       ...contextCampaign.campaign,
       name: body.name,
@@ -90,6 +95,7 @@ function CampaignForm() {
       newBody
     );
     console.log("CREATE: ", response);
+    setLoader(false);
   }
 
   function addAtrribute() {
@@ -164,13 +170,18 @@ function CampaignForm() {
           style={customStyles}
           contentLabel="Example Modal"
         >
-          <h1 style={{ marginTop: "8px", fontSize: "20px" }}>Deu bom ?</h1>
+          <h1
+            style={{ marginTop: "8px", fontSize: "20px", textAlign: "center" }}
+          >
+            Campanha criada com sucesso
+          </h1>
           <ModalButton style={{ marginTop: "30px" }}>
             <Link style={{ color: "#fff", textDecoration: "none" }} to="/">
               Ir para Campanhas
             </Link>
           </ModalButton>
         </Modal>
+        {loader && <Loader />}
       </Container>
     </>
   );

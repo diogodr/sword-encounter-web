@@ -20,6 +20,7 @@ export const Content = styled.div`
   @media (max-width: 475px) {
     flex-direction: column;
     gap: 16px;
+    padding: 90px 25px 0 25px;
   }
 `;
 
@@ -38,7 +39,7 @@ export const RightSide = styled.div`
 
 export const Infos = styled.div`
   min-width: 300px;
-  height: 50px;
+  height: 18vh;
 
   background: #fff;
   backdrop-filter: blur(10px);
@@ -47,6 +48,10 @@ export const Infos = styled.div`
   /* opacity: 0.8; */
   border-radius: 12px;
   padding: 18px;
+
+  @media (max-width: 425px) {
+    height: 50px;
+  }
 
   a {
     color: #797979;

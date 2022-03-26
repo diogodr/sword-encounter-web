@@ -32,10 +32,14 @@ export const Content = styled.div`
   h1 {
     margin: 20px 0;
     color: #797979;
+
+    @media (max-width: 425px) {
+      font-size: 24px;
+    }
   }
 
   form {
-    width: 600px;
+    width: 80%;
     display: flex;
     flex-direction: column;
     height: 95%;
@@ -46,7 +50,7 @@ export const Content = styled.div`
       }
 
       input {
-        width: 40%;
+        width: max-content;
         border: none;
         border-bottom: 1px solid #797979;
         background: transparent;

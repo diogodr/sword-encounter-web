@@ -3,14 +3,17 @@ import { useCampaign } from "../../contexts/campaignContext";
 import api from "../../services/api";
 import fileApi from "../../services/fileApi";
 import mapDefault from "../../assets/map-white.png";
-
+import Loader from "../Loader";
 import { Container, Mapa } from "./styles";
+import { useAuth } from "../../contexts/auth";
 
 function Map() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [maps, setMaps] = useState([]);
   const [selectedMap, setSelectedMap] = useState("");
   const contextCampaign = useCampaign();
+  const [loader, setLoader] = useState(false);
+  const contextAuth = useAuth();
 
   async function addMap() {
     const formData = new FormData();
@@ -25,8 +28,10 @@ function Map() {
   }
 
   async function getGameController() {
+    setLoader(true);
     const response = await api.get(`/game/${contextCampaign.campaign.id}`);
     setMaps(response.data.campaign.maps);
+    setLoader(false);
   }
 
   useEffect(() => {
@@ -50,14 +55,24 @@ function Map() {
           </select>
           <span className="focus"></span>
         </div>
-        <input
-          type="file"
-          // value={selectedFile}
-          onChange={(e) => setSelectedFile(e.target.files[0])}
-        />
-        <button onClick={addMap}>Adicionar mapa</button>
+        {contextAuth.isMaster && (
+          <>
+            <label className="label-image" for="arquivo">
+              Subir imagem
+            </label>
+            <input
+              name="arquivo"
+              id="arquivo"
+              type="file"
+              // value={selectedFile}
+              onChange={(e) => setSelectedFile(e.target.files[0])}
+            />
+            <button onClick={addMap}>Adicionar mapa</button>
+          </>
+        )}
       </div>
       <Mapa src={selectedMap ? selectedMap : mapDefault} alt="mapa" />
+      {loader && <Loader />}
     </Container>
   );
 }

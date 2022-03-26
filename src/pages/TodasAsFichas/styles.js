@@ -16,7 +16,7 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   margin-top: 80px;
-  height: 85%;
+  height: 80%;
   width: 80%;
   max-width: 890px;
   background: #fff;
@@ -53,6 +53,10 @@ export const Content = styled.div`
       display: flex;
       flex-direction: column;
       align-items: center;
+
+      @media (max-width: 435px) {
+        display: none;
+      }
 
       a {
         width: 100px;
