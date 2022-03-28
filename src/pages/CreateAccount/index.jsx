@@ -73,6 +73,7 @@ function CreateAccount() {
           placeholder="E-mail"
           type="email"
           id="email"
+          required
           value={userEmail}
           onChange={(event) => setUserEmail(event.target.value)}
         />
@@ -80,6 +81,7 @@ function CreateAccount() {
           placeholder="Senha"
           type="password"
           id="password"
+          required
           value={userPassword}
           onChange={(event) => setUserPassword(event.target.value)}
         />

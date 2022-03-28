@@ -49,6 +49,10 @@ export const Container = styled.div`
       justify-content: center;
       margin-top: 0 !important;
 
+      img {
+        width: 20px;
+      }
+
       @media (max-width: 425px) {
         display: none;
       }

@@ -14,11 +14,9 @@ function Campagnes() {
 
   async function getCampaign() {
     setLoader(true);
-    console.log("Listagem Campaign before");
     const userId = context.user.id;
     await api.get(`campaigns/user/${userId}`).then((response) => {
       setCampagnes(response.data);
-      console.log("Listagem Campaign after");
     });
     setLoader(false);
   }
@@ -35,8 +33,9 @@ function Campagnes() {
   };
 
   async function handleDelete(campaingId) {
-    const response = await api.delete(`/campaigns/${campaingId}`);
-    console.log("DELETE REPONSE: ", response);
+    setLoader(true);
+    await api.delete(`/campaigns/${campaingId}`);
+    setLoader(true);
     window.location.reload();
   }
 

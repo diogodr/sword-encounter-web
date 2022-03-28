@@ -1,8 +1,28 @@
 import React, { useState } from "react";
 import { useCampaign } from "../../contexts/campaignContext";
-import { Container, Content, Input, SubmitButton } from "./styles";
+import { Container, Content, Input, SubmitButton, ModalButton } from "./styles";
 import api from "../../services/api";
 import { useAuth } from "../../contexts/auth";
+import Modal from "react-modal";
+import { Link } from "react-router-dom";
+
+const customStyles = {
+  content: {
+    width: "250px",
+    height: "250px",
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    position: "relative",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+};
 
 function FichasForm() {
   const contextCampaign = useCampaign();
@@ -10,6 +30,7 @@ function FichasForm() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [character, setCharacter] = useState("player");
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   function initAttributes() {
     const defaultAttr = [];
@@ -49,12 +70,21 @@ function FichasForm() {
     });
     setNome("");
     setEmail("");
+    openModal();
   }
 
   async function getPlayerID() {
     const response = await api.get("/users");
     const filteredUser = response.data.find((user) => user.email === email);
     return filteredUser;
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
   }
 
   return (
@@ -64,6 +94,7 @@ function FichasForm() {
         <div>
           <div>
             <input
+              className="radio-input"
               type="radio"
               id="mestre"
               name="character"
@@ -74,6 +105,7 @@ function FichasForm() {
           </div>
           <div>
             <input
+              className="radio-input"
               type="radio"
               id="jogador"
               name="character"
@@ -99,6 +131,24 @@ function FichasForm() {
         />
         <SubmitButton type="submit">Finalizar</SubmitButton>
       </Content>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <h1 style={{ marginTop: "8px", fontSize: "20px", textAlign: "center" }}>
+          Ficha criada com sucesso
+        </h1>
+        <ModalButton style={{ marginTop: "30px" }}>
+          <Link
+            style={{ color: "#fff", textDecoration: "none" }}
+            to="/todas-as-fichas"
+          >
+            Ir para Fichas
+          </Link>
+        </ModalButton>
+      </Modal>
     </Container>
   );
 }

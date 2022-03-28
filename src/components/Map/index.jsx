@@ -3,6 +3,7 @@ import { useCampaign } from "../../contexts/campaignContext";
 import api from "../../services/api";
 import fileApi from "../../services/fileApi";
 import mapDefault from "../../assets/map-white.png";
+import checkedIcon from "../../assets/checked.png";
 import Loader from "../Loader";
 import { Container, Mapa } from "./styles";
 import { useAuth } from "../../contexts/auth";
@@ -25,6 +26,7 @@ function Map() {
     body.maps.push(response.data.data.link);
 
     await api.put(`/campaigns/${contextCampaign.campaign.id}`, body);
+    setSelectedFile(null);
   }
 
   async function getGameController() {
@@ -58,7 +60,11 @@ function Map() {
         {contextAuth.isMaster && (
           <>
             <label className="label-image" for="arquivo">
-              Subir imagem
+              {selectedFile === null ? (
+                <span>Subir imagem</span>
+              ) : (
+                <img src={checkedIcon} alt="icon" />
+              )}
             </label>
             <input
               name="arquivo"

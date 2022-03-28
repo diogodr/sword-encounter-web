@@ -1,62 +1,57 @@
 import React, { useState } from "react";
-
 import { Container, DiceList } from "./styles";
-
 import diceIcon from "../../assets/dice.svg";
+import api from "../../services/api";
 
-function DiceRoll() {
+function DiceRoll({ game, selectedPlayer }) {
   const [diceFacet, setDiceFacet] = useState("d4");
   const [diceRolled, setDiceRolled] = useState("");
-  const [apiSimulator, setApiSimulator] = useState([
-    {
-      user: "diogoweb1@email.com",
-      diceRolled: "d20",
-      diceValue: "4",
-    },
-    {
-      user: "giovanna@email.com",
-      diceRolled: "d100",
-      diceValue: "38",
-    },
-    {
-      user: "camilo@email.com",
-      diceRolled: "d6",
-      diceValue: "6",
-    },
-    {
-      user: "katia@email.com",
-      diceRolled: "d6",
-      diceValue: "1",
-    },
-  ]);
 
-  function handleRoll() {
+  console.log("GAME: ", game);
+  console.log("SELECTED PLAYER: ", selectedPlayer);
+
+  async function handleRoll() {
+    let rolled = 0;
+
     if (diceFacet === "d4") {
       let diceValue = Math.floor(Math.random() * 5);
-      setDiceRolled(diceValue.toString());
+      rolled = diceValue;
     } else if (diceFacet === "d6") {
       let diceValue = Math.floor(Math.random() * 7);
-      setDiceRolled(diceValue.toString());
+      rolled = diceValue;
     } else if (diceFacet === "d8") {
       let diceValue = Math.floor(Math.random() * 9);
-      setDiceRolled(diceValue.toString());
+      rolled = diceValue;
     } else if (diceFacet === "d10") {
       let diceValue = Math.floor(Math.random() * 11);
-      setDiceRolled(diceValue.toString());
+      rolled = diceValue;
     } else if (diceFacet === "d12") {
       let diceValue = Math.floor(Math.random() * 13);
-      setDiceRolled(diceValue.toString());
+      rolled = diceValue;
     } else if (diceFacet === "d20") {
       let diceValue = Math.floor(Math.random() * 21);
-      setDiceRolled(diceValue.toString());
+      rolled = diceValue;
     } else if (diceFacet === "d100") {
       let diceValue = Math.floor(Math.random() * 101);
-      setDiceRolled(diceValue.toString());
+      rolled = diceValue;
     }
+
+    await putRoll(rolled);
   }
 
-  console.log("DICE: ", diceFacet);
-  console.log("DICE ROLLED: ", diceRolled);
+  async function putRoll(rolled) {
+    const body = {
+      Type: diceFacet,
+      Value: rolled.toString(),
+    };
+
+    console.log("BODY: ", body);
+    const response = await api.put(
+      `characters/${selectedPlayer.id}/add-dice`,
+      body
+    );
+    console.log("RESPONSE: ", response);
+  }
 
   return (
     <Container>
@@ -82,12 +77,17 @@ function DiceRoll() {
       </div>
       <DiceList>
         <ul>
-          {apiSimulator.map((item) => (
-            <li>
-              <strong>{item.user}: </strong>
-              {item.diceRolled} | {item.diceValue}
-            </li>
-          ))}
+          {game &&
+            game.characters.map((character) => (
+              <li>
+                <strong>{character.attributes[0].value}: </strong>
+                {character.diceRolls.map((diceRoll) => (
+                  <p>
+                    {diceRoll.type} | {diceRoll.value}
+                  </p>
+                ))}
+              </li>
+            ))}
         </ul>
       </DiceList>
     </Container>
