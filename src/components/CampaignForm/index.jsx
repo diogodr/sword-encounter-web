@@ -76,9 +76,8 @@ function CampaignForm() {
 
   async function create(body) {
     setLoader(true);
-    const response = await api.post("/campaigns", body);
+    await api.post("/campaigns", body);
     setCampaignName("");
-    console.log("CREATE: ", response);
     setLoader(false);
   }
 

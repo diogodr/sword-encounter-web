@@ -5,10 +5,6 @@ import api from "../../services/api";
 
 function DiceRoll({ game, selectedPlayer }) {
   const [diceFacet, setDiceFacet] = useState("d4");
-  const [diceRolled, setDiceRolled] = useState("");
-
-  console.log("GAME: ", game);
-  console.log("SELECTED PLAYER: ", selectedPlayer);
 
   async function handleRoll() {
     let rolled = 0;
@@ -50,7 +46,6 @@ function DiceRoll({ game, selectedPlayer }) {
       `characters/${selectedPlayer.id}/add-dice`,
       body
     );
-    console.log("RESPONSE: ", response);
   }
 
   return (

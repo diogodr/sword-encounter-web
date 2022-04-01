@@ -5,10 +5,10 @@ import fileApi from "../../services/fileApi";
 import mapDefault from "../../assets/map-white.png";
 import checkedIcon from "../../assets/checked.png";
 import Loader from "../Loader";
-import { Container, Mapa } from "./styles";
+import { Container, Mapa, ContainerMap } from "./styles";
 import { useAuth } from "../../contexts/auth";
 
-function Map() {
+function Map({ game, selectedPlayer }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [maps, setMaps] = useState([]);
   const [selectedMap, setSelectedMap] = useState("");
@@ -39,6 +39,61 @@ function Map() {
   useEffect(() => {
     getGameController();
   }, []);
+
+  function buildMapGrid() {
+    const rows = [];
+    for (var r = 1; r < 10; r++) {
+      rows.push(<tr id={`r${r}`}>{buildMapColumn(r)}</tr>);
+    }
+    return rows;
+  }
+
+  function buildMapColumn(r) {
+    const positions = [];
+    if (game && game.characters) {
+      game.characters.map((character) => {
+        if (character.positions.length > 0) {
+          positions.push({
+            name: character.attributes[0].value,
+            x: character.positions[character.positions.length - 1].xcart,
+            y: character.positions[character.positions.length - 1].ycart,
+          });
+        }
+      });
+    }
+
+    console.log("POSITIONS:  ", positions);
+
+    const columns = [];
+    for (var h = 1; h < 12; h++) {
+      const position = positions.find(
+        (p) => p.x === r.toString() && p.y === h.toString()
+      );
+
+      columns.push(
+        <th id={`h${h}`}>
+          <div
+            id={`${r}-${h}`}
+            onClick={(event) => chosePosition(event.target.id)}
+          >
+            {position ? position.name : ""}
+          </div>
+        </th>
+      );
+    }
+    return columns;
+  }
+
+  async function chosePosition(value) {
+    console.log("Char :", selectedPlayer);
+    const split = value.split("-");
+
+    const body = {
+      xcart: split[0],
+      ycart: split[1],
+    };
+    await api.put(`characters/${selectedPlayer.id}/add-position`, body);
+  }
 
   return (
     <Container>
@@ -77,7 +132,11 @@ function Map() {
           </>
         )}
       </div>
-      <Mapa src={selectedMap ? selectedMap : mapDefault} alt="mapa" />
+      <ContainerMap>
+        <Mapa src={selectedMap ? selectedMap : mapDefault} alt="mapa" />
+        <table className="grade">{buildMapGrid()}</table>
+      </ContainerMap>
+
       {loader && <Loader />}
     </Container>
   );

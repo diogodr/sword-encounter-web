@@ -35,6 +35,13 @@ export const RightSide = styled.div`
     height: 37vh;
     gap: 10px;
   }
+  @media (min-height: 800px) {
+    height: 400px;
+  }
+
+  @media (min-width: 1024px) {
+    height: 80vh;
+  }
 `;
 
 export const Infos = styled.div`
@@ -50,7 +57,14 @@ export const Infos = styled.div`
   padding: 18px;
 
   @media (max-width: 425px) {
-    height: 50px;
+    height: 64px;
+  }
+
+  div {
+    h4 {
+      color: #797979;
+      font-weight: normal;
+    }
   }
 
   a {

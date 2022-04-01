@@ -11,7 +11,10 @@ function Home() {
   const contextCampaign = useCampaign();
   const contextAuth = useAuth();
   const [game, setGame] = useState(null);
-  const [selectedPlayer, setSelectedPlayer] = useState({ attributes: [] });
+  const [selectedPlayer, setSelectedPlayer] = useState({
+    attributes: [],
+    positions: [],
+  });
 
   async function getGameController() {
     // setLoader(true);
@@ -44,7 +47,7 @@ function Home() {
     <>
       <Container>
         <Content>
-          <Map />
+          <Map game={game} selectedPlayer={selectedPlayer} />
           <RightSide>
             <Infos>
               {contextAuth.isMaster ? (
@@ -54,7 +57,7 @@ function Home() {
               )}
               <div>
                 <h4>
-                  Player Selecionado:{" "}
+                  <strong>Player Selecionado:</strong>{" "}
                   <span>{selectedPlayer?.attributes[0]?.value}</span>
                 </h4>
                 {contextAuth.isMaster && (

@@ -170,10 +170,43 @@ export const Container = styled.div`
 `;
 
 export const Mapa = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+
+  @media (max-width: 425px) {
+    width: 95%;
+  }
+`;
+
+export const ContainerMap = styled.div`
   width: 80%;
   height: 90%;
   border-radius: 8px;
   margin-bottom: 12px;
+  position: relative;
+
+  table {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-collapse: collapse;
+  }
+
+  th {
+    width: 9.09%;
+  }
+
+  tr {
+    height: 11.11%;
+  }
+
+  th,
+  td {
+    border: 1px solid #ccc;
+  }
 
   @media (max-width: 425px) {
     width: 95%;
