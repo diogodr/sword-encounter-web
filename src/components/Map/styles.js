@@ -201,6 +201,7 @@ export const ContainerMap = styled.div`
 
   tr {
     height: 11.11%;
+    cursor: pointer;
   }
 
   th,

@@ -71,13 +71,11 @@ function Map({ game, selectedPlayer }) {
       );
 
       columns.push(
-        <th id={`h${h}`}>
-          <div
-            id={`${r}-${h}`}
-            onClick={(event) => chosePosition(event.target.id)}
-          >
-            {position ? position.name : ""}
-          </div>
+        <th
+          id={`${r}-${h}`}
+          onClick={(event) => chosePosition(event.target.id)}
+        >
+          <div>{position ? position.name : ""}</div>
         </th>
       );
     }
