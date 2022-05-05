@@ -21,7 +21,9 @@ function Header() {
 
   return (
     <Container>
-      <img className="logo-header" src={logoImg} alt="Sword Encounter" />
+      <a href="/">
+        <img className="logo-header" src={logoImg} alt="Sword Encounter" />
+      </a>
       <div className="profile-container">
         <p>{context.user?.email}</p>
         <img

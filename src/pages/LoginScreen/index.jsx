@@ -15,7 +15,6 @@ function LoginScreen() {
 
   async function handleLogin(event) {
     setLoader(true);
-    console.log("LOADER: ", loader);
     event.preventDefault();
     await context.Login(email, password);
     setLoader(false);

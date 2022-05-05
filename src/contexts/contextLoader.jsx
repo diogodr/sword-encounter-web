@@ -7,12 +7,10 @@ export const LoaderProvider = ({ children }) => {
 
   async function turnOn() {
     localStorage.setItem("@App:loader", JSON.stringify(true));
-    console.log("TurnOn", loader);
   }
 
   async function turnOff() {
     localStorage.setItem("@App:loader", JSON.stringify(false));
-    console.log("TurnOff", loader);
   }
 
   useEffect(() => {

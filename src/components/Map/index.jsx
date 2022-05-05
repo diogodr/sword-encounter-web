@@ -62,8 +62,6 @@ function Map({ game, selectedPlayer }) {
       });
     }
 
-    console.log("POSITIONS:  ", positions);
-
     const columns = [];
     for (var h = 1; h < 12; h++) {
       const position = positions.find(
@@ -75,7 +73,7 @@ function Map({ game, selectedPlayer }) {
           id={`${r}-${h}`}
           onClick={(event) => chosePosition(event.target.id)}
         >
-          <div>{position ? position.name : ""}</div>
+          <div className="gradeP">{position ? position.name : ""}</div>
         </th>
       );
     }
@@ -83,7 +81,6 @@ function Map({ game, selectedPlayer }) {
   }
 
   async function chosePosition(value) {
-    console.log("Char :", selectedPlayer);
     const split = value.split("-");
 
     const body = {

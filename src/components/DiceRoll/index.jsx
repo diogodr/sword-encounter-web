@@ -41,7 +41,6 @@ function DiceRoll({ game, selectedPlayer }) {
       Value: rolled.toString(),
     };
 
-    console.log("BODY: ", body);
     const response = await api.put(
       `characters/${selectedPlayer.id}/add-dice`,
       body

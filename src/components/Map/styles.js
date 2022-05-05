@@ -212,4 +212,10 @@ export const ContainerMap = styled.div`
   @media (max-width: 425px) {
     width: 95%;
   }
+
+  .gradeP {
+    @media (max-width: 425px) {
+      font-size: 9px;
+    }
+  }
 `;

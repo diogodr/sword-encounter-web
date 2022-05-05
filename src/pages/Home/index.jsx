@@ -11,10 +11,11 @@ function Home() {
   const contextCampaign = useCampaign();
   const contextAuth = useAuth();
   const [game, setGame] = useState(null);
-  const [selectedPlayer, setSelectedPlayer] = useState({
+  const bodyPlayer = {
     attributes: [],
     positions: [],
-  });
+  };
+  const [selectedPlayer, setSelectedPlayer] = useState(bodyPlayer);
 
   async function getGameController() {
     // setLoader(true);
@@ -36,12 +37,20 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    initSelectedPlayer();
+    if (selectPlayer === bodyPlayer) {
+      initSelectedPlayer();
+    }
   }, [game, contextAuth]);
 
   function selectPlayer(player) {
     setSelectedPlayer(player);
   }
+
+  useEffect(() => {
+    setInterval(() => {
+      getGameController();
+    }, 2000);
+  }, []);
 
   return (
     <>

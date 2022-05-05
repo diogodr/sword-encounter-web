@@ -93,7 +93,6 @@ function CampaignForm() {
       `/campaigns/${contextCampaign.campaign.id}`,
       newBody
     );
-    console.log("CREATE: ", response);
     setLoader(false);
   }
 

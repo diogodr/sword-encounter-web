@@ -11,16 +11,8 @@ export const Container = styled.div`
   padding: 12px;
   overflow-y: scroll;
 
-  @media (min-height: 890px) {
+  @media (min-width: 890px) {
     height: 460px;
-  }
-
-  @media (min-height: 890px) {
-    height: 400px;
-  }
-
-  @media (min-height: 1024px) {
-    height: 60vh;
   }
 
   label {

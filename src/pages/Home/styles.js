@@ -57,7 +57,8 @@ export const Infos = styled.div`
   padding: 18px;
 
   @media (max-width: 425px) {
-    height: 64px;
+    height: 109px;
+    overflow-y: scroll;
   }
 
   div {
