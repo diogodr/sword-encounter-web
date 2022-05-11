@@ -18,11 +18,8 @@ function Home() {
   const [selectedPlayer, setSelectedPlayer] = useState(bodyPlayer);
 
   async function getGameController() {
-    // setLoader(true);
     const response = await api.get(`/game/${contextCampaign.campaign.id}`);
-
     setGame(response.data);
-    // setLoader(false);
   }
 
   function initSelectedPlayer() {
@@ -37,7 +34,7 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    if (selectPlayer === bodyPlayer) {
+    if (selectedPlayer === bodyPlayer || selectedPlayer === null) {
       initSelectedPlayer();
     }
   }, [game, contextAuth]);
